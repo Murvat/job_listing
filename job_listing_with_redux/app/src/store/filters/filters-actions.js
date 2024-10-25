@@ -4,12 +4,12 @@ export const REMOVE_FILTER = 'REMOVE_FILTER';
 export const CLEAR_FILTER = 'CLEAR_FILTER'
 
 
-export const addFIlter = (filter) => ({
+export const addFilter = (filter) => ({
     type: ADD_FILTER,
     filter,
 })
 export const removeFilter = (filter) => ({
-    type: removeFilter,
+    type: REMOVE_FILTER,
     filter,
 
 })

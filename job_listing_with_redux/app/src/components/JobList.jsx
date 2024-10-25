@@ -1,17 +1,25 @@
-import data from '../mock/data.json';
 import { JobPosition } from './JobPosition';
-import { useSelector } from 'react-redux';
-import { selectAllPoisitions } from 'store/positions/positionSelectors';
+import { useSelector,useDispatch } from 'react-redux';
+import { selectVisiblePositions } from 'store/positions/positionSelectors';
+import { addFilter } from 'store/filters/filters-actions';
+import { selectFilters } from 'store/filters/filters-selector';
 
 const JobList = () => {
+  const dispatch = useDispatch();
 
-  const positions = useSelector(selectAllPoisitions);
-  
+  const currentFilters = useSelector(selectFilters);
+    const positions = useSelector((state)=>selectVisiblePositions(state, currentFilters));
+
+  const handleAddFilter = (filter) => {
+    dispatch(addFilter(filter))
+  }
 
   return (
     <div className='job-list'>
-      {data.map(item => (
-        <JobPosition key={item.id} {...item} />
+      {positions.map(item => (
+        <JobPosition
+        handleAddFilter={handleAddFilter}
+          key={item.id} {...item} />
       ))}
     </div>
   )
